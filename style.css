@@ -83,6 +83,17 @@ body, .video-controls, .video-timer, .options{
   transform: translateY(-50%);
   border-radius: 50%;
 }
+
+.note{
+  position: absolute;
+  left: 10;
+  top: 78%;
+  height: 13px;
+  width: 13px;
+  background-color: purple;
+  transform: translateY(-50%);
+  z-index: 100;
+}
 .progress-area span, .progress-area .progress-bar::before{
   display: none;
 }
