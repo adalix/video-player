@@ -57,10 +57,8 @@ mainVideo.addEventListener('loadeddata', (e)=>{
 noteBtn.addEventListener('click', (e) => {
     let noteTime = Math.floor(mainVideo.currentTime)
     note.style.left = progressBar.style.width
-    console.log(noteTime + "your note added");
-    // return noteTime
+    console.log( "your note added to " + noteTime);
 });
-// console.log(mainVideo.duration)
 
 playPauseBtn.addEventListener('click', playPause)
 mainVideo.addEventListener('click', playPause)
