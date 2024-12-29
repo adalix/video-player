@@ -17,7 +17,19 @@ picInPicBtn = container.querySelector('.pic-in-pic span'),
 fullscreenBtn = container.querySelector('.fullscreen i');
 
 let notes = []
-
+let timer ;
+const hideControls = () => {
+    if(mainVideo.paused) return;
+    timer = setTimeout(()=>{
+       container.classList.remove('show-controls')
+    },2000)
+}
+hideControls()
+container.addEventListener('mousemove', () =>{
+    container.classList.add('show-controls')
+    clearTimeout(timer)
+    hideControls()
+})
 function playPause(){
     if(mainVideo.paused){
         mainVideo.play()
@@ -42,6 +54,8 @@ function formatTime(time){
     }
     return `${hours}:${minutes}:${seconds}`
 }
+
+
 mainVideo.addEventListener('timeupdate', (e) => {
     let {currentTime, duration} = e.target;
     let percent = (currentTime / duration) * 100;
@@ -49,8 +63,8 @@ mainVideo.addEventListener('timeupdate', (e) => {
     currentVideoTime.innerText = formatTime(currentTime);
 })
 
-mainVideo.addEventListener('loadeddata', (e)=>{
-    videoDuration.innerText = formatTime(e.target.value)
+mainVideo.addEventListener('timeupdate', (e)=>{
+    videoDuration.innerText = formatTime(e.target.duration)
 });
 
 
@@ -63,7 +77,7 @@ noteBtn.addEventListener('click', (e) => {
 playPauseBtn.addEventListener('click', playPause)
 mainVideo.addEventListener('click', playPause)
 videoTimeLine.addEventListener('click', (e) =>{
-    let timelineWidth = videoTimeLine.clientWidth;
+    let timelineWidth = videoTimeLine.clientWidth;  
     mainVideo.currentTime = (e.offsetX / timelineWidth) * mainVideo.duration
 })
 speedBtn.addEventListener('click', ()=> {
@@ -115,6 +129,27 @@ volumeSlider.addEventListener('input', (e) => {
     }
 })
 
+const draggableProgressBar = (e) => {    
+    let timelineWidth = videoTimeLine.clientWidth;
+    progressBar.style.width = `${e.offsetX}px`
+    mainVideo.currentTime = (e.offsetX / timelineWidth) * mainVideo.duration
+    currentVideoTime.innerText = formatTime(mainVideo.currentTime)
+}
+videoTimeLine.addEventListener('mousedown', ()=>{
+    videoTimeLine.addEventListener('mousemove', draggableProgressBar);
+})
+container.addEventListener('mouseup', ()=>{
+    videoTimeLine.removeEventListener('mousemove', draggableProgressBar);
+})
+
+videoTimeLine.addEventListener('mousemove', e => {
+    const progressTime = videoTimeLine.querySelector('.progress-time')
+    let offsetX = e.offsetX
+    progressTime.style.left = `${offsetX}px`; 
+    let timelineWidth = videoTimeLine.clientWidth;
+    let percent = (e.offsetX / timelineWidth) * mainVideo.duration 
+    progressTime.innerText = formatTime(percent)
+} )
 skipForward.addEventListener('click',() => {
     mainVideo.currentTime += 5
 })
