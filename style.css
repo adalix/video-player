@@ -3,26 +3,29 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{
+body {
   font-family: "Poppins", serif;
   min-height: 100vh;
   background-color: orange;
 }
 
-body, .video-controls, .video-timer, .options{
+body,
+.video-controls,
+.video-timer,
+.options {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .container {
-  max-width:900px;
+  max-width: 900px;
   width: 98%;
   position: relative;
-  background-color: #000 ;
-  border-radius: 5px ;
+  background-color: #000;
+  border-radius: 5px;
   overflow: hidden;
 }
-.container.fullscreen{
+.container.fullscreen {
   max-width: 100%;
   width: 100%;
   height: 100vh;
@@ -38,7 +41,7 @@ body, .video-controls, .video-timer, .options{
   transition: all 0.08s ease;
 }
 
-.container.show-controls .wrapper{
+.container.show-controls .wrapper {
   bottom: 0;
   opacity: 1;
   pointer-events: auto;
@@ -51,20 +54,20 @@ body, .video-controls, .video-timer, .options{
   z-index: -1;
   position: absolute;
   height: calc(100% + 35px);
-  background-color: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  background-color: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
 }
-.video-timeline{
+.video-timeline {
   margin: 0 auto; /* added*/
   height: 20px; /* changed from 7px*/
-  width: 100%; /* changed from width 100%*/ 
+  width: 100%; /* changed from width 100%*/
   border-radius: 16px; /* added*/
   cursor: pointer;
 }
-.video-timeline .progress-area{
+.video-timeline .progress-area {
   height: 6px;
   background-color: rgba(255, 255, 255, 0.6); /* need to change*/
 }
-.progress-area{
+.progress-area {
   border-radius: 16px; /* added */
 }
 .progress-area span {
@@ -73,16 +76,16 @@ body, .video-controls, .video-timer, .options{
   top: 25px;
   font-size: 13px;
   color: #fff;
-  transform:translateX(-50%)
+  transform: translateX(-50%);
 }
-.progress-area .progress-bar{
+.progress-area .progress-bar {
   position: relative;
   width: 0%;
   height: 100%;
   background-color: #2289ff;
   border-radius: 16px; /* added */
 }
-.progress-area .progress-bar::before{
+.progress-area .progress-bar::before {
   content: "";
   position: absolute;
   right: 0;
@@ -94,35 +97,92 @@ body, .video-controls, .video-timer, .options{
   border-radius: 50%;
 }
 
-.note{
+.note-indicator {
   position: absolute;
   left: 10;
   top: 78%;
-  height: 13px;
-  width: 13px;
-  background-color: purple;
+  height: 18px;
+  width: 8px;
+  opacity: 0;
+  background-color: #b3b2b2;
   transform: translateY(-50%);
   z-index: 100;
 }
-.progress-area span, .progress-area .progress-bar::before{
+
+.showNoteIndicator{
+  opacity: 1;
+}
+.progress-area span,
+.progress-area .progress-bar::before {
   display: none;
 }
-.video-timeline:hover .progress-area span, 
-.video-timeline:hover .progress-area .progress-bar::before{
+.video-timeline:hover .progress-area span,
+.video-timeline:hover .progress-area .progress-bar::before {
   display: block;
 }
-.video-controls{
+.video-controls {
   padding: 5px 20px 10px;
 }
 .video-controls .options {
   width: 100%;
 }
-.video-controls .options:first-child{
+.video-controls .options:first-child {
   justify-content: flex-start;
 }
-.video-controls .options:last-child{
+.video-controls .options:last-child {
   justify-content: flex-end;
 }
+
+.note-content {
+  position: relative;
+}
+.note-part {
+  position: absolute;
+  top: -210px;
+  left: -210px;
+  background-color: #e5dddd;
+  width: 220px;
+  height: 220px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.13s ease;
+}
+
+.note-part span {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: inline-block;
+  background-color: #1bce5d;
+  padding: 0.2em 0.6em;
+  color: #fff;
+  border-radius: 20px;
+}
+.note-part textarea {
+  background-color: #548767;
+  padding: 0.5em 0.8em;
+  width: 100%;
+  height: 120px;
+  color: #fff;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.note-part textarea::placeholder {
+  color: #aeaeae77;
+}
+
+.note-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.shownote{
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .options button {
   width: 40px;
   height: 40px;
@@ -133,7 +193,7 @@ body, .video-controls, .video-timer, .options{
   background: none;
 }
 
-.options button :where(i, span){
+.options button :where(i, span) {
   width: 100%;
   height: 100%;
   line-height: 40px;
@@ -144,7 +204,7 @@ body, .video-controls, .video-timer, .options{
   max-width: 75px;
 }
 
-.options .video-timer{
+.options .video-timer {
   font-size: 14px;
   color: #efefef;
   margin-left: 15px;
@@ -155,12 +215,12 @@ body, .video-controls, .video-timer, .options{
   margin: 0 5px;
   font-family: "Open sans";
 }
-.playback-content{
+.playback-content {
   position: relative;
 }
-.playback-content .speed-options{
+.playback-content .speed-options {
   position: absolute;
-  left: -40px;
+  left: -70px;
   bottom: 40px;
   width: 95px;
   list-style: none;
@@ -170,16 +230,16 @@ body, .video-controls, .video-timer, .options{
   border-radius: 4px;
   transition: opacity 0.13s ease;
 }
-.playback-content .speed-options.show{
+.playback-content .speed-options.show {
   opacity: 1;
   pointer-events: auto;
 }
 .speed-options li {
   cursor: pointer;
-  font-size:14px;
+  font-size: 14px;
   padding: 5px 0 5px 15px;
 }
-.speed-options li.active{
+.speed-options li.active {
   color: #fff;
   background: #2289ff;
 }
