@@ -1,24 +1,37 @@
 import {videos} from "./videos.js";
+console.log(videos)
 
 const container = document.querySelector(".container"),
-  mainVideo = container.querySelector("video"),
-  videoTimeLine = container.querySelector(".video-timeline"),
-  progressBar = container.querySelector(".progress-bar"),
-  volumeBtn = container.querySelector(".volume i"),
-  volumeSlider = container.querySelector(".left input"),
-  currentVideoTime = container.querySelector(".current-time"),
-  videoDuration = container.querySelector(".video-duration"),
-  skipForward = container.querySelector(".skip-forward i"),
-  skipBackward = container.querySelector(".skip-backward i"),
-  playPauseBtn = container.querySelector(".play-pause i"),
-  speedBtn = container.querySelector(".playback-speed span"),
-  speedOptions = container.querySelector(".speed-options"),
-  noteBtn = container.querySelector(".note-add span"),
-  note = container.querySelector(".note"),
-  picInPicBtn = container.querySelector(".pic-in-pic span"),
-  fullscreenBtn = container.querySelector(".fullscreen i");
+mainVideo = container.querySelector("video"),
+videoTimeLine = container.querySelector(".video-timeline"),
+progressBar = container.querySelector(".progress-bar"),
+volumeBtn = container.querySelector(".volume i"),
+volumeSlider = container.querySelector(".left input"),
+currentVideoTime = container.querySelector(".current-time"),
+videoDuration = container.querySelector(".video-duration"),
+skipForward = container.querySelector(".skip-forward i"),
+skipBackward = container.querySelector(".skip-backward i"),
+playPauseBtn = container.querySelector(".play-pause i"),
+speedBtn = container.querySelector(".playback-speed span"),
+speedOptions = container.querySelector(".speed-options"),
+noteBtn = container.querySelector(".note-add span"),
+noteIndicator = container.querySelector(".note-indicator"),
+noteTime = container.querySelector(".note-time"),
+noteText = container.querySelector(".note-text"),
+notePart = container.querySelector(".note-part"),
+cancelBtn = container.querySelector("#cancelBtn"),
+saveBtn = container.querySelector("#saveBtn"),
+picInPicBtn = container.querySelector(".pic-in-pic span"),
+fullscreenBtn = container.querySelector(".fullscreen i");
+
 
 // let notes = [];
+
+// function saveToStorage(duration, note){
+
+// }
+
+
 let timer;
 const hideControls = () => {
   if (mainVideo.paused) return;
@@ -41,6 +54,7 @@ function playPause() {
     playPauseBtn.classList.replace("fa-pause", "fa-play");
   }
 }
+
 
 function formatTime(time) {
   let seconds = Math.floor(time % 60),
@@ -68,12 +82,27 @@ mainVideo.addEventListener("timeupdate", (e) => {
   videoDuration.innerText = formatTime(e.target.duration);
 });
 
-noteBtn.addEventListener("click", (e) => {
-  let noteTime = Math.floor(mainVideo.currentTime);
-  note.style.left = progressBar.style.width;
+noteBtn.addEventListener("click", () => {
+  if(!mainVideo.paused){
+    mainVideo.pause()
+    noteIndicator.classList.add('showNoteIndicator')
+    playPauseBtn.classList.replace("fa-pause", "fa-play");
+  }
+  notePart.classList.toggle('shownote')
+  noteTime.innerText = formatTime(mainVideo.currentTime);
+  noteIndicator.style.left = progressBar.style.width;
   console.log("your note added to " + noteTime);
 });
+cancelBtn.addEventListener('click', ()=>{
+  notePart.classList.toggle('shownote')  
+})
+noteText.addEventListener('keyup', (e)=>{
+  let note = e.target.value;
+  localStorage.setItem('note', note)
+  console.log(note)
+})
 
+cancelBtn.addEventListener
 playPauseBtn.addEventListener("click", playPause);
 mainVideo.addEventListener("click", playPause);
 videoTimeLine.addEventListener("click", (e) => {
