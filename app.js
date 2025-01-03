@@ -82,7 +82,6 @@ noteBtn.addEventListener("click", () => {
   notePart.classList.toggle('showNote')
   noteTime.innerText = formatTime(mainVideo.currentTime);
   noteIndicator.style.left = progressBar.style.width;
-  console.log("your note added to " + noteTime);
 });
 cancelBtn.addEventListener('click', ()=>{
   notePart.classList.toggle('showNote')  
@@ -90,7 +89,6 @@ cancelBtn.addEventListener('click', ()=>{
 noteText.addEventListener('keyup', (e)=>{
   let note = e.target.value;
   localStorage.setItem('note', note)
-  console.log(note)
 })
 
 playPauseBtn.addEventListener("click", playPause);
