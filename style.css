@@ -6,10 +6,12 @@
 body {
   font-family: "Poppins", serif;
   min-height: 100vh;
-  background-color: orange;
+  background-color: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-body,
 .video-controls,
 .video-timer,
 .options {
@@ -24,6 +26,7 @@ body,
   background-color: #000;
   border-radius: 5px;
   overflow: hidden;
+  max-height: 500px;
 }
 .container.fullscreen {
   max-width: 100%;
@@ -143,6 +146,7 @@ body,
   background-color: #e5dddd;
   width: 220px;
   height: 220px;
+  border-radius: 4px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.13s ease;
@@ -169,7 +173,7 @@ body,
 }
 
 .note-part textarea::placeholder {
-  color: #aeaeae77;
+  color: #c8c8c877;
 }
 
 .note-buttons {
@@ -178,7 +182,7 @@ body,
   justify-content: space-evenly;
 }
 
-.shownote{
+.showNote{
   opacity: 1;
   pointer-events: auto;
 }
@@ -245,4 +249,55 @@ body,
 }
 .container video {
   width: 100%;
+}
+
+.video-list {
+  width: 300px;
+  height: 500px;
+  background: #c56f6f;
+}
+
+.video-list-item{
+  width: 100%;
+  height: 98px;
+  background: orange;
+  padding-top: 1.2px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.video{
+  width: 167px;
+  height: 94px;
+  object-fit: cover;
+  background: red;
+  border-radius: 2px;
+}
+.videoDuration{
+  position: absolute;
+  bottom:3px;
+  left: 125px;
+  color: #fff;
+  z-index: 1000;
+  background: #141414;
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+.video-name{
+  margin-left: 20px;
+  text-transform:capitalize;
+  font-size: 20px;
+  color: #fff;
+}
+
+@media(max-width: 1024px){
+  body{
+    display: flex;
+    flex-direction: column;
+  }
+  .container{
+    margin: 40px 0;
+  }
 }
