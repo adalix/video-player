@@ -1,5 +1,4 @@
 import {videos} from "./videos.js";
-console.log(videos)
 
 const container = document.querySelector(".container"),
 mainVideo = container.querySelector("video"),
@@ -23,14 +22,6 @@ cancelBtn = container.querySelector("#cancelBtn"),
 saveBtn = container.querySelector("#saveBtn"),
 picInPicBtn = container.querySelector(".pic-in-pic span"),
 fullscreenBtn = container.querySelector(".fullscreen i");
-
-
-// let notes = [];
-
-// function saveToStorage(duration, note){
-
-// }
-
 
 let timer;
 const hideControls = () => {
@@ -88,13 +79,13 @@ noteBtn.addEventListener("click", () => {
     noteIndicator.classList.add('showNoteIndicator')
     playPauseBtn.classList.replace("fa-pause", "fa-play");
   }
-  notePart.classList.toggle('shownote')
+  notePart.classList.toggle('showNote')
   noteTime.innerText = formatTime(mainVideo.currentTime);
   noteIndicator.style.left = progressBar.style.width;
   console.log("your note added to " + noteTime);
 });
 cancelBtn.addEventListener('click', ()=>{
-  notePart.classList.toggle('shownote')  
+  notePart.classList.toggle('showNote')  
 })
 noteText.addEventListener('keyup', (e)=>{
   let note = e.target.value;
@@ -102,7 +93,6 @@ noteText.addEventListener('keyup', (e)=>{
   console.log(note)
 })
 
-cancelBtn.addEventListener
 playPauseBtn.addEventListener("click", playPause);
 mainVideo.addEventListener("click", playPause);
 videoTimeLine.addEventListener("click", (e) => {
