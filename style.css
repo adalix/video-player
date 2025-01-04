@@ -252,7 +252,7 @@ body {
 }
 
 .video-list {
-  width: 300px;
+  width: 400px;
   height: 500px;
   background: #c56f6f;
 }
@@ -264,10 +264,10 @@ body {
   padding-top: 1.2px;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: center;  
 }
 
-.video{
+.video-image{
   width: 167px;
   height: 94px;
   object-fit: cover;
@@ -277,7 +277,7 @@ body {
 .videoDuration{
   position: absolute;
   bottom:3px;
-  left: 125px;
+  left: 115px;
   color: #fff;
   z-index: 1000;
   background: #141414;
