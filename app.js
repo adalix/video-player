@@ -23,6 +23,21 @@ saveBtn = container.querySelector("#saveBtn"),
 picInPicBtn = container.querySelector(".pic-in-pic span"),
 fullscreenBtn = container.querySelector(".fullscreen i");
 
+const videoList = document.querySelector('.video-list')
+const videoListItem = document.querySelector('.video-list-item')
+const videoImg = document.querySelector(".video-image")
+const listItemDuration = document.querySelector(".videoDuration");
+const videoName = document.querySelector(".video-name");
+const videoPlayer = document.querySelector('#video-player')
+
+
+videoList.addEventListener('click', (e)=>{
+  let a = videoPlayer.src = e.target.src
+  progressBar.style.width = '0%';
+  // playPause()
+  console.log(a)
+})
+
 let timer;
 const hideControls = () => {
   if (mainVideo.paused) return;
@@ -36,6 +51,7 @@ container.addEventListener("mousemove", () => {
   clearTimeout(timer);
   hideControls();
 });
+
 function playPause() {
   if (mainVideo.paused) {
     mainVideo.play();
@@ -175,4 +191,16 @@ skipForward.addEventListener("click", () => {
 });
 skipBackward.addEventListener("click", () => {
   mainVideo.currentTime -= 5;
+});
+
+
+videos.forEach( vid => {
+  videoList.innerHTML += 
+  `
+   <div class="video-list-item">
+      <video src=${vid.videoSrc} class="video-image"></video>
+      <span class="videoDuration">${vid.duration}</span>
+      <p class="video-name">${vid.name}</p>
+    </div>
+  `
 });
