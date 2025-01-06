@@ -279,18 +279,21 @@ body {
 .videoDuration{
   position: absolute;
   bottom:3px;
-  left: 115px;
+  left: 120px;
   color: #fff;
   z-index: 1000;
   background: #141414;
   padding: 1px 2px;
   border-radius: 2px;
+  font-size: 14px;
+  width: 45px;
+  text-align: center;
+
 }
 
 .video-name{
   margin-left: 20px;
-  text-transform:capitalize;
-  font-size: 20px;
+  font-size: 16px;
   color: #fff;
 }
 
