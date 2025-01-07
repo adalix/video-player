@@ -14,7 +14,6 @@ const container = document.querySelector(".container"),
   speedBtn = container.querySelector(".playback-speed span"),
   speedOptions = container.querySelector(".speed-options"),
   noteBtn = container.querySelector(".note-add span"),
-  noteIndicator = container.querySelector(".note-indicator"),
   noteTime = container.querySelector(".note-time"),
   noteText = container.querySelector(".note-text"),
   notePart = container.querySelector(".note-part"),
@@ -90,20 +89,19 @@ mainVideo.addEventListener("timeupdate", (e) => {
 noteBtn.addEventListener("click", () => {
   if (!mainVideo.paused) {
     mainVideo.pause();
-    noteIndicator.classList.add("showNoteIndicator");
+    // noteIndicator.classList.add("showNoteIndicator");
     playPauseBtn.classList.replace("fa-pause", "fa-play");
   }
   notePart.classList.toggle("showNote");
   noteTime.innerText = formatTime(mainVideo.currentTime);
-  noteIndicator.style.left = progressBar.style.width;
 });
 cancelBtn.addEventListener("click", () => {
   notePart.classList.toggle("showNote");
 });
-noteText.addEventListener("keyup", (e) => {
-  // let note = e.target.value;
-  // localStorage.setItem('note', note)
-});
+// noteText.addEventListener("keyup", (e) => {
+//   // let note = e.target.value;
+//   // localStorage.setItem('note', note)
+// });
 
 playPauseBtn.addEventListener("click", playPause);
 mainVideo.addEventListener("click", playPause);
@@ -209,9 +207,16 @@ saveBtn.addEventListener("click", () => {
     video: videoPlayer.src,
   }
   notes.push(note)
+  if(noteText.value.length > 0 ){
+    let noteIndicator = document.createElement('span')
+    noteIndicator.classList.add('note-indicator')
+    noteIndicator.style.left = progressBar.style.width;
+    videoTimeLine.appendChild(noteIndicator)
+  }
+  console.log(noteText.value.length)
   localStorage.setItem('note', JSON.stringify(notes));
   noteText.value = ''
   notePart.classList.toggle("showNote");
+
 });
 console.log(notes);
-
