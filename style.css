@@ -106,15 +106,15 @@ body {
   top: 78%;
   height: 18px;
   width: 8px;
-  opacity: 0;
-  background-color: #b3b2b2;
+  opacity: 1;
+  background-color: #f108f5;
   transform: translateY(-50%);
   z-index: 100;
 }
 
-.showNoteIndicator{
+/* .showNoteIndicator{
   opacity: 1;
-}
+} */
 .progress-area span,
 .progress-area .progress-bar::before {
   display: none;
