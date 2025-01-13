@@ -1,3 +1,5 @@
+import Note from "./note.js";
+import Storage from "./storage.js";
 import { videos } from "./videos.js";
 
 const container = document.querySelector(".container"),
@@ -25,15 +27,18 @@ const container = document.querySelector(".container"),
 const videoList = document.querySelector(".video-list");
 const videoListItem = document.querySelector(".video-list-item");
 const videoImg = document.querySelector(".video-image");
-const listItemDuration = document.querySelector(".videoDuration");
+const listItemDuration = document.querySelector(".listItemDuration");
 const videoName = document.querySelector(".video-name");
 const videoPlayer = document.querySelector("#video-player");
 
-videoList.addEventListener("click", (e) => {
-  let a = (videoPlayer.src = e.target.src);
+
+const storage = new Storage();
+
+videoList.addEventListener("click", (e) => { 
+
+  console.log(e.target)
+  videoPlayer.src = e.target.src;
   progressBar.style.width = "0%";
-  // playPause()
-  console.log(a);
 });
 
 let timer;
@@ -98,10 +103,6 @@ noteBtn.addEventListener("click", () => {
 cancelBtn.addEventListener("click", () => {
   notePart.classList.toggle("showNote");
 });
-// noteText.addEventListener("keyup", (e) => {
-//   // let note = e.target.value;
-//   // localStorage.setItem('note', note)
-// });
 
 playPauseBtn.addEventListener("click", playPause);
 mainVideo.addEventListener("click", playPause);
@@ -201,22 +202,30 @@ videos.forEach((vid) => {
 
 let notes = [];
 saveBtn.addEventListener("click", () => {
-  let note = {
-    note: noteText.value,
-    duration: formatTime(mainVideo.currentTime),
-    video: videoPlayer.src,
-  }
-  notes.push(note)
+
+  createNote()
+
   if(noteText.value.length > 0 ){
     let noteIndicator = document.createElement('span')
     noteIndicator.classList.add('note-indicator')
     noteIndicator.style.left = progressBar.style.width;
+    console.log(progressBar.style.width)
     videoTimeLine.appendChild(noteIndicator)
   }
   console.log(noteText.value.length)
-  localStorage.setItem('note', JSON.stringify(notes));
   noteText.value = ''
   notePart.classList.toggle("showNote");
 
 });
 console.log(notes);
+
+function createNote(){
+  const videoNote = noteText.value;
+  const time = formatTime(mainVideo.currentTime);
+  const videoUrl = videoPlayer.src;
+
+  const note = new Note(videoNote,time,videoUrl)
+  storage.addNoteToStorage(note)
+  notes.push(note)
+}
+
