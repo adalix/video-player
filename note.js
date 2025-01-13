@@ -4,9 +4,6 @@ class Note{
         this.time = time;
         this.video = video
     }
-    createNote(){
-        
-    }
 }
 
 export default Note;
