@@ -266,6 +266,7 @@ body {
   border: 1px solid rgb(92, 53, 53);
   border-radius: 5px;
   margin-bottom : 10px;
+  cursor: pointer;
 
 }
 
