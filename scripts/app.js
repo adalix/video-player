@@ -33,6 +33,15 @@ const videoPlayer = document.querySelector("#video-player");
 
 
 const storage = new Storage();
+// mainVideo.style.display = 'none'
+
+function randomVideo() {
+    const randomVideoIndex = Math.floor(Math.random() * videos.length)
+    let choosenVideo = videos[randomVideoIndex].videoSrc;
+    mainVideo.src = choosenVideo;
+}
+
+randomVideo()
 
 videoList.addEventListener("click", (e) => { 
 
@@ -217,7 +226,6 @@ saveBtn.addEventListener("click", () => {
   notePart.classList.toggle("showNote");
 
 });
-console.log(notes);
 
 function createNote(){
   const videoNote = noteText.value;
