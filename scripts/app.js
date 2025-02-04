@@ -25,30 +25,49 @@ const container = document.querySelector(".container"),
   fullscreenBtn = container.querySelector(".fullscreen i");
 
 const videoList = document.querySelector(".video-list");
-const videoListItem = document.querySelector(".video-list-item");
-const videoImg = document.querySelector(".video-image");
-const listItemDuration = document.querySelector(".listItemDuration");
-const videoName = document.querySelector(".video-name");
+// const videoListItem = document.querySelector(".video-list-item");
+// const videoImg = document.querySelector(".video-image");
+// const listItemDuration = document.querySelector(".listItemDuration");
+// const videoName = document.querySelector(".video-name");
 const videoPlayer = document.querySelector("#video-player");
 
-
 const storage = new Storage();
-// mainVideo.style.display = 'none'
+// container.style.display = 'none'
 
 function randomVideo() {
-    const randomVideoIndex = Math.floor(Math.random() * videos.length)
-    let choosenVideo = videos[randomVideoIndex].videoSrc;
-    mainVideo.src = choosenVideo;
+  const randomVideoIndex = Math.floor(Math.random() * videos.length);
+  let chosenVideo = videos[randomVideoIndex].videoSrc;
+  mainVideo.src = chosenVideo;
 }
 
-randomVideo()
+randomVideo();
 
-videoList.addEventListener("click", (e) => { 
 
-  console.log(e.target)
-  videoPlayer.src = e.target.src;
+function imgToVideo (e){
+  const imgSrc = e.target.src;
+
+  const firstPart = imgSrc.slice(22)
+  const secondPart = firstPart.replace('/screenshots', '')
+  const thirdPart = secondPart.replace('.png', '.mp4')
+
+  return thirdPart;
+}
+
+
+videoList.addEventListener("click", (e) => {
+
+  // console.log(imgToVideo(e))
+  mainVideo.src = imgToVideo(e);
   progressBar.style.width = "0%";
+
+  if(playPauseBtn.className === "fa-play"){
+    playPauseBtn.classList.replace("fa-play", "fa-pause")
+  }else{
+    playPauseBtn.classList.replace("fa-pause", "fa-play")
+  }
 });
+
+
 
 let timer;
 const hideControls = () => {
@@ -202,38 +221,33 @@ skipBackward.addEventListener("click", () => {
 videos.forEach((vid) => {
   videoList.innerHTML += `
    <div class="video-list-item">
-      <video src=${vid.videoSrc} class="video-image"></video>
+      <img src=${vid.videoImg} class="video-image"></img>
       <span class="videoDuration">${vid.duration}</span>
       <p class="video-name">${vid.name}</p>
     </div>
   `;
 });
 
-let notes = [];
 saveBtn.addEventListener("click", () => {
+  createNote();
 
-  createNote()
-
-  if(noteText.value.length > 0 ){
-    let noteIndicator = document.createElement('span')
-    noteIndicator.classList.add('note-indicator')
+  if (noteText.value.length > 0) {
+    let noteIndicator = document.createElement("span");
+    noteIndicator.classList.add("note-indicator");
     noteIndicator.style.left = progressBar.style.width;
-    console.log(progressBar.style.width)
-    videoTimeLine.appendChild(noteIndicator)
+    console.log(progressBar.style.width);
+    videoTimeLine.appendChild(noteIndicator);
   }
-  console.log(noteText.value.length)
-  noteText.value = ''
+  console.log(noteText.value.length);
+  noteText.value = "";
   notePart.classList.toggle("showNote");
-
 });
 
-function createNote(){
+function createNote() {
   const videoNote = noteText.value;
   const time = formatTime(mainVideo.currentTime);
   const videoUrl = videoPlayer.src;
 
-  const note = new Note(videoNote,time,videoUrl)
-  storage.addNoteToStorage(note)
-  notes.push(note)
+  const note = new Note(videoNote, time, videoUrl);
+  storage.addNoteToStorage(note);
 }
-
